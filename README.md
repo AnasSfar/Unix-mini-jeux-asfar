@@ -57,4 +57,18 @@ Ce système ne mesure pas seulement ta réussite, mais la qualité de ton équil
 
 1 étoile (⭐) : tu as mis du temps ou commis plusieurs erreurs — l’élément t’a tout de même accordé son sceau, symbole d’apprentissage.
 
-<small>Ton total d’étoiles détermine ton titre final et l’accès éventuel à l’épreuve bonus de l’Éther.</small>
+Ton total d’étoiles détermine ton titre final et l’accès éventuel à l’épreuve bonus de l’Éther.
+
+---
+> 📁 Structure du projet
+> 
+> porta-elementa/  
+> ├─ start              # lanceur principal  
+> ├─ fire.sh            # épreuve du Feu  
+> ├─ water.sh           # épreuve de l’Eau  
+> ├─ wind.sh            # épreuve du Vent  
+> ├─ earth.sh           # épreuve de la Terre  
+> ├─ ether.sh           # épreuve bonus  
+> ├─ gate.sh            # portail final  
+> └─ data/              # énigmes, indices et textes  
+
