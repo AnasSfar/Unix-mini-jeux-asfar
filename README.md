@@ -6,7 +6,7 @@
 ## 🧭 Concept général
 
 **Porta Elementa** est un jeu textuel en **bash**, à jouer directement dans le terminal UNIX.  
-Le joueur parcourt quatre épreuves — **Fire**, **Water**, **Wind**, et **Earth** — puis une épreuve spéciale : **Ether**.  
+Le joueur parcourt quatre épreuves — **Fire**, **Water**, **Wind**, et **Earth**.
 Chaque élément met à l’épreuve une qualité différente :  
 - 🔥 Feu → rapidité et instinct  
 - 💧 Eau → mémoire et observation  
@@ -57,7 +57,7 @@ Ce système ne mesure pas seulement ta réussite, mais la qualité de ton équil
 
 1 étoile (⭐) : tu as mis du temps ou commis plusieurs erreurs — l’élément t’a tout de même accordé son sceau, symbole d’apprentissage.
 
-Ton total d’étoiles détermine ton titre final et l’accès éventuel à l’épreuve bonus de l’Éther.
+Ton total d’étoiles détermine ton titre final.
 
 ---
 > 📁 Structure du projet
@@ -68,7 +68,6 @@ Ton total d’étoiles détermine ton titre final et l’accès éventuel à l�
 > ├─ water.sh           # épreuve de l’Eau  
 > ├─ wind.sh            # épreuve du Vent  
 > ├─ earth.sh           # épreuve de la Terre  
-> ├─ ether.sh           # épreuve bonus  
 > ├─ gate.sh            # portail final  
 > └─ data/              # énigmes, indices et textes  
 
