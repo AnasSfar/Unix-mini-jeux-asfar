@@ -46,7 +46,7 @@ Chaque erreur t’approche d’une réponse,
 chaque minute t’enseigne la patience.  
 
 ---
-## ⭐ Système de notation
+## ⭐ Comment gagner ?
 
 Chaque épreuve de Porta Elementa se termine par l’attribution d’un certain nombre d’étoiles ⭐.  
 Ce système ne mesure pas seulement ta réussite, mais la qualité de ton équilibre entre rapidité, réflexion et précision.
