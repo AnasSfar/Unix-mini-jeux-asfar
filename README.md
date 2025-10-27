@@ -30,7 +30,7 @@ Tu obtiens 1 à 3 étoiles selon ta rapidité et ta précision.
   
 Quand tu as les quatre symboles :
 - Le Portail t’invite à entrer le code ;
-- Si le code est faux → un indice poétique s’affiche et tu peux réessayer une fois ;
+- Si le code est faux → un indice s’affiche et tu peux réessayer une fois ;
   
 Ensuite, la porte s’ouvre et révèle ta fin selon ton score.
 
