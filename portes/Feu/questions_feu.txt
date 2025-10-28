@@ -1,1 +1,22 @@
-
+[
+  {"question": "Le feu est une matière comme l’eau ou la terre.", "answer": "faux"},
+  {"question": "Plus une flamme est bleue, plus elle est chaude.", "answer": "vrai"},
+  {"question": "Le feu peut brûler dans l’espace.", "answer": "faux"},
+  {"question": "Le feu a besoin d’oxygène pour exister.", "answer": "vrai"},
+  {"question": "On peut éteindre un feu d’huile avec de l’eau.", "answer": "faux"},
+  {"question": "La foudre peut allumer un feu sans flamme visible.", "answer": "vrai"},
+  {"question": "Plus l’air est froid, plus le feu brûle fort.", "answer": "faux"},
+  {"question": "Les flammes montent vers le haut parce que l’air chaud est plus léger.", "answer": "vrai"},
+  {"question": "Une bougie fond parce que la cire brûle.", "answer": "vrai"},
+  {"question": "Le feu est une réaction chimique appelée combustion.", "answer": "vrai"},
+  {"question": "Le métal ne peut pas brûler.", "answer": "faux"},
+  {"question": "Les flammes ne font aucun bruit.", "answer": "faux"},
+  {"question": "L’extincteur agit en retirant l’oxygène du feu.", "answer": "vrai"},
+  {"question": "Une flamme verte est impossible.", "answer": "faux"},
+  {"question": "Dans la mythologie, Prométhée a offert le feu aux humains.", "answer": "vrai"},
+  {"question": "Le feu peut exister sans chaleur.", "answer": "faux"},
+  {"question": "Un feu plus petit peut parfois être plus dangereux qu’un grand.", "answer": "vrai"},
+  {"question": "Les flammes d’un feu peuvent avoir plusieurs couleurs en même temps.", "answer": "vrai"},
+  {"question": "Si tu retires l’air autour d’un feu, il s’éteint.", "answer": "vrai"},
+  {"question": "Le feu peut se propager dans le vide.", "answer": "faux"}
+]
