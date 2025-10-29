@@ -45,12 +45,6 @@ i=$((RANDOM % ${#enigmes[@]}]))
 enigme="${enigmes[$i]}"
 bonne="${reponses[$i]}"
 
-# --- On écrit l'énigme dans le fichier mystère ---
-echo "$enigme" > "$fichier"
-
-# --- On garde la bonne réponse pour le script de vérif ---
-echo "$bonne" > .bonne_reponse
-
 # --- Message au joueur ---
 echo "🎯 Le fichier mystère s'appelle : flamme.txt"
 echo "💡 Explore le labyrinthe : cd lab_feu"
