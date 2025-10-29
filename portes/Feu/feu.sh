@@ -30,8 +30,8 @@ rm -rf "$LAB"
 mkdir -p "$LAB"/{combustible/{bois,papier},comburant/{air,oxygene},energie/{etincelle,friction}}
 
 # 2) Choix du fichier et de l'énigme
-dossiers_feu=($(find "$LAB" -type d))
-chemin_fichier="${dossiers_feu[$RANDOM % ${#dossiers_feu[@]}]}/flamme.txt"
+dossiers=($(find "$lab" -type d))
+fichier_cache="${dossiers[$RANDOM % ${#dossiers[@]}]}/flamme.txt"
 
 enigmes=(
   "Énigme FEU : Je nais de l'étreinte de l'air et du bois. Qui suis-je ?"
@@ -40,70 +40,45 @@ enigmes=(
 )
 reponses=("feu" "bleu" "cendre")
 
-choix=$((RANDOM % ${#enigmes[@]}))
-echo "${enigmes[$choix]}" > "$chemin_fichier"
-bonne_reponse="${reponses[$choix]}"
-nom_fichier="$(basename "$chemin_fichier")"
+choix=$((RANDOM % ${#enigmes[@]}]))
+echo "${enigmes[$choix]}" > "$fichier_cache"
+bonne="${reponses[$choix]}"
+nom_fichier="$(basename "$fichier_cache")"
 
-echo "🔥 Cherche le fichier nommé : $nom_fichier"
-echo ""
+echo "🎯 Le fichier mystère s'appelle : $nom_fichier"
+echo
+echo "💡 Explore le labyrinthe 'lab_feu/' pour le trouver !"
+echo "   Astuce :"
+echo "     find . -type f -name \"$nom_fichier\""
+echo "     grep -R \"Énigme FEU\" ."
+echo
 
-# 3) Demande chemin du fichier
+# Le joueur cherche dans le terminal par lui-même.
+# Le script continue de surveiller le temps.
+
+# --- 3) Pose la question (une fois qu’il a lu l’énigme) ---
 while true; do
   maintenant=$(date +%s)
   temps_utilise=$(( (maintenant - debut) + total_penalites ))
   temps_restant=$(( limite - temps_utilise ))
-
-  # condition de temps
   if (( temps_restant <= 0 )); then
     echo "⏰ Le temps est écoulé !"
     echo "⭐ Étoiles : 0"
+    echo "💀 La flamme s’est éteinte... Ton épreuve est un tas de cendres."
     exit 0
   fi
 
-  echo -n "Chemin ABSOLU du fichier ($temps_restant s restants) > "
-  if ! read -r -t "$temps_restant" chemin; then
+  echo -n "🔥 Ta réponse à l'énigme ($temps_restant s restants) > "
+  if ! read -r -t "$temps_restant" rep; then
     echo "⏰ Le temps est écoulé !"
     echo "⭐ Étoiles : 0"
+    echo "💀 La flamme s’est éteinte... Ton épreuve est un tas de cendres."
     exit 0
   fi
+  [[ "${rep,,}" == "out" ]] && { echo "💨 Tu as fui les flammes."; exit 0; }
 
-  [[ "${chemin,,}" == "out" ]] && { echo "💨 Abandon."; exit 0; }
-
-  if [[ -f "$chemin" && "$(basename "$chemin")" == "$nom_fichier" && "$(realpath "$chemin")" == "$(realpath "$fichier_cache")" ]]; then
-    echo "✔️  Fichier trouvé !"
-    echo "------ ÉNIGME ------"; cat "$chemin"; echo "--------------------"
-    break
-  else
-    echo "❌ Mauvais fichier. Essaie encore."
-  fi
-done
-
-# 4) Vérif rép question
-while true; do
-  maintenant=$(date +%s)
-  temps_utilise=$(( (maintenant - debut) + total_penalites ))
-  temps_restant=$(( limite - temps_utilise ))
-
-  if (( temps_restant <= 0 )); then
-    echo "⏰ Le temps est écoulé !"
-    echo "⭐ Étoiles : 0"
-    exit 0
-  fi
-
-  echo -n "Réponse à l'énigme ($temps_restant s restants) > "
-  if ! read -r -t "$temps_restant" reponse; then
-    echo "⏰ Le temps est écoulé !"
-    echo "⭐ Étoiles : 0"
-    exit 0
-  fi
-
-  [[ "${reponse,,}" == "out" ]] && { echo "💨 Abandon."; exit 0; }
-
-  reponse_norm="$(echo "$reponse" | tr '[:upper:]' '[:lower:]' | xargs)"
-  bonne_norm="$(echo "$bonne" | tr '[:upper:]' '[:lower:]' | xargs)"
-
-  if [[ "$reponse_norm" == "$bonne_norm" ]]; then
+  # Vérification via script séparé
+  if bash "$(dirname "$0")/verif_rep" "$rep" "$bonne"; then
     echo "✔️ Bonne réponse !"
     break
   else
@@ -112,7 +87,7 @@ while true; do
   fi
 done
 
-# 5) score et fin du jeu
+# --- 4) Calcul du score et message final ---
 fin=$(date +%s)
 temps_brut=$(( fin - debut ))
 temps_total=$(( temps_brut + total_penalites ))
@@ -124,13 +99,6 @@ etoiles=1
 
 m=$((temps_brut/60)); s=$((temps_brut%60))
 
-echo
-echo "🔥Fin de l'épreuve, voyons voir si vous avez trouver votre équilibre"
-printf "⏱ Temps brut       : %dm %02ds\n" $((brut/60)) $((brut%60))
-echo   "⛔ Pénalités        : ${penalites}s"
-echo   "⭐ Étoiles          : ${etoiles}"
-
-# --- 6) Message final thématique selon le résultat ---
 if (( etoiles == 3 )); then
   message="🔥 Bravo, maître des flammes ! Le Feu t’obéit et danse à ton commandement."
 elif (( etoiles == 2 )); then
@@ -141,4 +109,10 @@ else
   message="💀 La flamme s’est éteinte. Il ne reste que des braises froides et ton échec."
 fi
 
+echo
+echo "🔥Fin de l'épreuve, voyons si tu as réussi à trouver ton équilibre"
+printf "⏱ Temps brut     : %dm %02ds\n" "$m" "$s"
+echo   "⛔ Erreurs      : ${total_penalites}s"
+echo   "🧮 Temps total    : ${temps_total}s / ${limite}s"
+echo   "⭐ Étoiles        : ${etoiles}"
 echo "$message"
