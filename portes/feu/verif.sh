@@ -1,32 +1,36 @@
 #!/bin/bash
 
-set -euo pipefail
+STATE_DIR="./game_state/feu"
+EXPECTED_FILE="$STATE_DIR/expected_answer.txt"
+LAB_ROOT_FILE="$STATE_DIR/lab_root.txt"
 
-# On doit avoir la bonne réponse stockée par ./fire
-if [[ ! -f .bonne_reponse ]]; then
-  echo "⚠️  Aucune énigme en cours. Lance d'abord : ./fire"
+if [[ ! -f "$EXPECTED_FILE" || ! -f "$LAB_ROOT_FILE" ]]; then
+  echo "⚠️  Aucune énigme active. Lance d'abord l'épreuve du FEU."
   exit 1
 fi
 
-bonne="$(cat .bonne_reponse)"
+expected="$(<"$EXPECTED_FILE")"
+lab_root="$(<"$LAB_ROOT_FILE")"
 
-# Normalisation (minuscules + trim)
-norm() { echo "$1" | tr '[:upper:]' '[:lower:]' | xargs; }
+# --- Fonction de normalisation ---
+normalize() {
+  local s="$*"
+  if command -v iconv >/dev/null 2>&1; then
+    s="$(printf '%s' "$s" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$s")"
+  fi
+  printf '%s' "$s" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+//g'
+}
 
-echo
-echo "🔥 La flamme crépite et attend ton verdict…"
-read -rp "👉 Donne-moi la réponse, cher joueur : " rep
+expected_norm="$(normalize "$expected")"
+candidate="$lab_root/$expected_norm"
 
-# Sortie volontaire
-if [[ "$(norm "$rep")" == "out" ]]; then
-  echo "💨 Tu t'éloignes du brasier. Vérification annulée."
-  exit 0
-fi
-
-if [[ "$(norm "$rep")" == "$(norm "$bonne")" ]]; then
-  echo "✔️ Bonne réponse ! 🔥 La flamme te reconnaît."
+# --- Vérification ---
+if [[ -f "$candidate" ]]; then
+  echo "✔️  Bonne réponse ! Tu as trouvé le fichier '$expected_norm'. 🔥"
+  echo "✅ Épreuve du FEU réussie !"
   exit 0
 else
-  echo "❌ Mauvaise réponse. 🪵 La braise reste muette."
+  echo "❌  Aucun fichier nommé '$expected_norm' trouvé à la racine du labyrinthe."
+  echo "💡 Vérifie que tu l’as bien créé dans : $lab_root"
   exit 1
 fi
