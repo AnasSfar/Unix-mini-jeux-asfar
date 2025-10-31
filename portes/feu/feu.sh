@@ -41,11 +41,19 @@ enigmes=(
 )
 reponses=("feu" "bleu" "cendre")
 
-i=$((RANDOM % ${#enigmes[@]}]))
+i=$(( RANDOM % ${#enigmes[@]} ))
 enigme="${enigmes[$i]}"
 bonne="${reponses[$i]}"
 
+#vérif state
+printf '%s\n' "$bonne"         > "$state_dir/expected_answer.txt"
+printf '%s\n' "$token"         > "$state_dir/token.txt"
+printf '%s\n' "$fichier"       > "$state_dir/riddle_path.txt"
+printf '%s\n' "$lab"           > "$state_dir/lab_root.txt"
+
 # --- Message au joueur ---
-echo "🎯 Le fichier mystère s'appelle : flamme.txt"
-echo "💡 Explore le labyrinthe : cd lab_feu"
-echo "🔥 Que la flamme te guide..."
+echo "🎯 Un fichier mystère a été créé quelque part dans le labyrinthe : flamme.txt"
+echo "📂 Racine du labyrinthe : $lab"
+echo "✅ Règle : Quand tu trouves l’énigme, crée À LA RACINE de '$lab' un fichier dont le NOM = la réponse (minuscules, sans accents, sans espaces)."
+echo "💡 Exemple : réponse « La flamme » => créer '$lab/flamme'"
+echo "🔥 Bonne chance !"
