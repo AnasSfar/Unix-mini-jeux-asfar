@@ -2,9 +2,6 @@
 set -euo pipefail
 
 # temps et score
-limite=900
-penalite=30
-total_penalites=0
 debut=$(date +%s)
 
 # dossiers
@@ -24,6 +21,7 @@ echo "  🔸 Cherche le fichier flamme.txt caché dans le labyrinthe."
 echo "  🔸 Lis l’énigme."
 echo "  🔸 Crée à la racine un fichier dont le nom = la réponse."
 echo " Par exemple, la bonne réponse est "test", le fichier sera crée à la racine avec le nom "test". " 
+echo " Attention, tu as seulement 10 minutes à partir de maintenant. "
 echo "Tape OUT pour abandonner."
 echo ""
 sleep 2
