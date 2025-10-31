@@ -65,8 +65,8 @@ Quand tu as les quatre symboles :
 Chaque erreur t’approche d’une réponse,  
 chaque minute t’enseigne la patience.  
 
-Les étoiles ⭐ ne mesurent pas la victoire,  
-elles mesurent ta **maîtrise intérieure**.
+Les étoiles ⭐ ne mesurent pas seulement la victoire,  
+elles mesurent aussi ta **maîtrise intérieure**.
 
 - ⭐⭐⭐ — tu as répondu vite et juste : l’élément reconnaît ta maîtrise parfaite.  
 - ⭐⭐ — tu as trouvé la vérité après quelques hésitations : l’équilibre reste fragile.  
