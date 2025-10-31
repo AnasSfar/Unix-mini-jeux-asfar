@@ -73,4 +73,27 @@ elles mesurent aussi ta **maîtrise intérieure**.
 - ⭐ — tu as mis du temps ou commis des erreurs : l’élément t’accorde tout de même son sceau.  
 - 0 ⭐ — le temps s’est écoulé, il faudra recommencer avant d’avancer.
 
-Ton total d’étoiles détermine ton **titre final** lors de l’ouverture de la Porte.
+---
+
+## 🗝️ Ouvrir la Porte des Éléments
+
+Quand tu as terminé les quatre épreuves, retourne à la racine du jeu :
+
+```bash
+cd ~/porta_elementa
+```
+
+Assure-toi que le fichier `portail.sh` est exécutable :
+```bash
+chmod +x portail.sh
+```
+
+Puis ouvre le portail :
+```bash
+./portail.sh
+```
+
+Entre la combinaison secrète obtenue grâce aux quatre éléments 🔥💧🌬️🌍  
+Si elle est correcte, le **Portail s’ouvrira** et révélera ton **titre final**.
+
+---
