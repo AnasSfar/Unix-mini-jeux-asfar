@@ -10,7 +10,7 @@ STARS_FILE="game_state/stars.txt"
 CODE_FEU="game_state/code_feu.txt"
 
 # barème
-LIMITE=600          # temps max (10 min)
+LIMITE=630          # temps max (10 min)
 THREE_STAR_MAX=150
 TWO_STAR_MAX=300
 PENALITE=15
@@ -45,15 +45,15 @@ fi
 
 # si limite dépassée → fin du jeu
 if (( temps > LIMITE )); then
-  echo "⏰ Le temps imparti est écoulé (${temps}s > ${LIMITE}s)."
-  echo "🔥 La flamme s'éteint... Épreuve du FEU échouée."
+  echo "Le temps imparti est écoulé (${temps}s > ${LIMITE}s)."
+  echo "La flamme s'éteint... Épreuve du FEU échouée."
   exit 1
 fi
 
 # si la réponse est absente → échec
 if [[ ! -f "$candidate" ]]; then
-  echo "❌ Fichier '$expected' non trouvé dans $lab_root."
-  echo "❌ Erreurs : $errors"
+  echo "Fichier '$expected' non trouvé dans $lab_root."
+  echo "Erreurs : $errors"
   exit 1
 fi
 
@@ -75,6 +75,6 @@ echo "$digit" > "$CODE_FEU"
 # résumé
 echo " Bravo, vous avez réussi l'épreuve du feu!"
 echo " Temps : ${temps}s"
-echo " Vous avez commis ${errors} erreurs. "
+echp " Vous avez commis ${errors} erreurs. "
 echo " Vous avez gagnez ${stars} étoiles lors de cette épreuve "
 echo " Votre code secret est : ${digit}"
