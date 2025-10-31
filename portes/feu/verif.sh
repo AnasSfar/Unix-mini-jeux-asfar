@@ -6,7 +6,6 @@ EXPECTED_FILE="$STATE_DIR/expected_answer.txt"
 LAB_ROOT_FILE="$STATE_DIR/lab_root.txt"
 START_HMS_FILE="$STATE_DIR/depart.txt"
 STARS_FILE="game_state/stars.txt"
-SYMS_FILE="game_state/symbols.txt"
 CODE_FEU="game_state/code_feu.txt"
 
 # barème
