@@ -46,7 +46,7 @@ fi
 # si limite dépassée → fin du jeu
 if (( temps > LIMITE )); then
   echo "Le temps imparti est écoulé (${temps}s > ${LIMITE}s)."
-  echo "La flamme s'éteint... Épreuve du FEU échouée."
+  echo "La flamme s'éteint... Épreuve du FEU échouée. Il faut recommencer cette épreuve avant de passer à l'épreuve suivante"
   exit 1
 fi
 
