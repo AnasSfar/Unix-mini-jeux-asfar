@@ -11,7 +11,7 @@ date +%H:%M:%S > "$state_dir/depart.txt"
 
 # intro
 clear
-echo "🔥 PORTE DU FEU — ÉPREUVE 1 🔥"
+echo "PORTE DU FEU — ÉPREUVE 1"
 echo ""
 echo "Bienvenue, voyageur..."
 echo "Tu viens d’ouvrir la Porte du Feu."
