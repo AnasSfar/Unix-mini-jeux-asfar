@@ -10,9 +10,9 @@ STARS_FILE="game_state/stars.txt"
 CODE_FEU="game_state/code_feu.txt"
 
 # barème
-LIMITE=900          # temps max (15 min)
-THREE_STAR_MAX=90
-TWO_STAR_MAX=180
+LIMITE=600          # temps max (10 min)
+THREE_STAR_MAX=150
+TWO_STAR_MAX=300
 PENALITE=15
 
 # fonctions utilitaires
@@ -73,9 +73,8 @@ echo "FEU:$stars" >> "$STARS_FILE"
 echo "$digit" > "$CODE_FEU"
 
 # résumé
-echo " Bonne réponse !"
+echo " Bravo, vous avez réussi l'épreuve du feu!"
 echo " Temps : ${temps}s"
-echp " Erreurs : ${errors}"
-echo " Étoiles : ${stars}"
-echo " Chiffre du FEU : ${digit}"
-echo " Épreuve du FEU réussie !"
+echp " Vous avez commis ${errors} erreurs. "
+echo " Vous avez gagnez ${stars} étoiles lors de cette épreuve "
+echo " Votre code secret est : ${digit}"
