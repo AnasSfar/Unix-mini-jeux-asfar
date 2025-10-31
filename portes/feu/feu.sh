@@ -32,7 +32,7 @@ rm -rf "$lab"
 mkdir -p "$lab"/{combustible/{bois,papier},comburant/{air,oxygene},energie/{etincelle,friction}}
 
 # énigme
-dossiers=($(find "$lab" -type d))
+dossiers=($(find "$lab" -mindepth 1 -type d))
 fichier="${dossiers[$RANDOM % ${#dossiers[@]}]}/flamme.txt"
 
 enigme="Je reste quand tout brûle. Qui suis-je ?"
