@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # chemins
 STATE_DIR="game_state/feu"
@@ -9,22 +10,23 @@ STARS_FILE="game_state/stars.txt"
 CODE_FEU="game_state/code_feu.txt"
 
 # barème
+LIMITE=900          # temps max (15 min)
 THREE_STAR_MAX=90
 TWO_STAR_MAX=180
-PENALITE=15  # +15 s / erreur
+PENALITE=15
 
-# vérif fichiers
-if [[ ! -f "$EXPECTED_FILE" || ! -f "$LAB_ROOT_FILE" ]]; then
-  echo "⚠️ Lance d'abord l'épreuve du FEU."
-  exit 1
-fi
+# fonctions utilitaires
+hms_to_sec(){ IFS=: read -r h m s <<<"$1"; echo $((10#$h*3600+10#$m*60+10#$s)); }
+
+# vérifs fichiers
+[[ -f "$EXPECTED_FILE" && -f "$LAB_ROOT_FILE" ]] || { echo "⚠️ Lance d'abord l'épreuve du FEU."; exit 1; }
 
 # lecture
 expected="$(<"$EXPECTED_FILE")"
 lab_root="$(<"$LAB_ROOT_FILE")"
 candidate="$lab_root/$expected"
 
-# erreurs
+# erreurs (fichiers à la racine ≠ bonne réponse)
 total_files=$(find "$lab_root" -maxdepth 1 -type f | wc -l)
 if [[ -f "$candidate" ]]; then
   errors=$(( total_files > 0 ? total_files - 1 : 0 ))
@@ -32,46 +34,47 @@ else
   errors=$total_files
 fi
 
-# si pas trouvé
+# temps écoulé
+temps=9999
+if [[ -f "$START_HMS_FILE" ]]; then
+  s1=$(hms_to_sec "$(cat "$START_HMS_FILE")")
+  s2=$(hms_to_sec "$(date +%H:%M:%S)")
+  (( s2 < s1 )) && s2=$((s2+86400))
+  temps=$(( s2 - s1 ))
+fi
+
+# si limite dépassée → fin du jeu
+if (( temps > LIMITE )); then
+  echo "⏰ Le temps imparti est écoulé (${temps}s > ${LIMITE}s)."
+  echo "🔥 La flamme s'éteint... Épreuve du FEU échouée."
+  exit 1
+fi
+
+# si la réponse est absente → échec
 if [[ ! -f "$candidate" ]]; then
-  echo "❌ Fichier '$expected' absent dans $lab_root"
+  echo "❌ Fichier '$expected' non trouvé dans $lab_root."
   echo "❌ Erreurs : $errors"
   exit 1
 fi
 
-# temps (HH:MM:SS → s)
-hms_to_sec(){ IFS=: read -r h m s <<<"$1"; echo $((10#$h*3600+10#$m*60+10#$s)); }
-if [[ -f "$START_HMS_FILE" ]]; then
-  start_hms="$(<"$START_HMS_FILE")"
-  now_hms="$(date +%H:%M:%S)"
-  start_s=$(hms_to_sec "$start_hms")
-  now_s=$(hms_to_sec "$now_hms"); (( now_s < start_s )) && now_s=$((now_s+86400))
-  temps=$(( now_s - start_s ))
-else
-  temps=9999
-fi
-
-# appliquer pénalité
+# calcul du score (temps + pénalités)
 total=$(( temps + errors * PENALITE ))
-
-# étoiles
 if   (( total <= THREE_STAR_MAX )); then stars=3
 elif (( total <= TWO_STAR_MAX ));  then stars=2
 else                                stars=1
 fi
 
-# chiffre aléatoire 0–9
+# chiffre aléatoire
 digit=$(( RANDOM % 10 ))
 
-# enregistrements
+# enregistrement
 mkdir -p game_state
 echo "FEU:$stars" >> "$STARS_FILE"
 echo "$digit" > "$CODE_FEU"
 
 # résumé
-echo "Bonne réponse : '$expected'"
-echo "Temps brut : ${temps}s"
-echo "Erreurs : ${errors}  (+$((errors*PENALITE))s)"
-echo "Étoiles : ${stars}"
-echo " Ton code secret pour l'épreuve du feu est : ${digit}"
-
+echo "✔️ Bonne réponse !"
+echo "⏱️ Temps : ${temps}s  + ${errors}×${PENALITE}s  → total=${total}s"
+echo "⭐ Étoiles : ${stars}"
+echo "🔢 Chiffre du FEU : ${digit}"
+echo "🔥 Épreuve du FEU réussie !"
