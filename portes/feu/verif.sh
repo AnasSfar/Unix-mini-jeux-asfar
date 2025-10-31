@@ -75,6 +75,6 @@ echo "$digit" > "$CODE_FEU"
 # résumé
 echo " Bravo, vous avez réussi l'épreuve du feu!"
 echo " Temps : ${temps}s"
-echp " Vous avez commis ${errors} erreurs. "
+echo " Vous avez commis ${errors} erreurs. "
 echo " Vous avez gagnez ${stars} étoiles lors de cette épreuve "
 echo " Votre code secret est : ${digit}"
