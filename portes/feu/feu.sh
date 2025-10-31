@@ -37,16 +37,9 @@ mkdir -p "$lab"/{combustible/{bois,papier},comburant/{air,oxygene},energie/{etin
 dossiers=($(find "$lab" -type d))
 fichier="${dossiers[$RANDOM % ${#dossiers[@]}]}/flamme.txt"
 
-enigmes=(
-  "Je nais de l'étreinte de l'air et du bois. Qui suis-je ?"
-  "Plus je suis chaude, plus je deviens bleue. Quelle est ma couleur ?"
-  "Je reste quand tout brûle. Qui suis-je ?"
-)
-reponses=("feu" "bleu" "cendre")
+enigme="Je reste quand tout brûle. Qui suis-je ?"
+bonne="cendre"
 
-i=$(( RANDOM % ${#enigmes[@]} ))
-enigme="${enigmes[$i]}"
-bonne="${reponses[$i]}"
 
 # écriture
 echo "$enigme" > "$fichier"
@@ -54,9 +47,5 @@ echo "$bonne"   > "$state_dir/expected_answer.txt"
 echo "$fichier" > "$state_dir/riddle_path.txt"
 echo "$lab"     > "$state_dir/lab_root.txt"
 
-# message
-echo ""
-echo "🎯 Une énigme a été cachée : flamme.txt"
-echo "📂 Racine : $lab"
-echo "💡 Quand tu trouves la réponse, crée '$lab/<réponse>'"
-echo "🔥 Bonne chance !"
+echo " Racine : $lab"
+echo " Bonne chance !"

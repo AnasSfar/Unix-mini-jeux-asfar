@@ -75,6 +75,7 @@ echo "$digit" > "$CODE_FEU"
 # résumé
 echo "✔️ Bonne réponse !"
 echo "⏱️ Temps : ${temps}s  + ${errors}×${PENALITE}s  → total=${total}s"
+echp " Erreurs : 
 echo "⭐ Étoiles : ${stars}"
 echo "🔢 Chiffre du FEU : ${digit}"
 echo "🔥 Épreuve du FEU réussie !"
