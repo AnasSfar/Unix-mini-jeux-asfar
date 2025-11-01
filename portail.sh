@@ -81,5 +81,5 @@ fi
 echo "Étoiles totales : $total"
 echo "Rang : $rank"
 echo ""
-echo "« Tu as prouvé ta volonté. Au-delà de cette porte, un nouveau voyage commence. »"
+echo "Au-delà de cette porte, un nouveau voyage commence."
 echo ""
