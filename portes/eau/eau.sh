@@ -1,3 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
 clear
 echo ""
 echo "PORTE DE L'EAU — ÉPREUVE 2"
