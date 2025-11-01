@@ -15,7 +15,7 @@ THREE_STAR_MAX=90
 TWO_STAR_MAX=180
 PENALITE=15
 
-# fonction utilitaire
+# fonction sec
 hms_to_sec(){ IFS=: read -r h m s <<<"$1"; echo $((10#$h*3600+10#$m*60+10#$s)); }
 
 # vérification des fichiers essentiels
